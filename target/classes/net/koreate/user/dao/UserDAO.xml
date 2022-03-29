@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="net.koreate.user.dao.UserDAO">
+	
+	<resultMap id="memberMap" 
+			   type="net.koreate.user.vo.UserVO">
+		<id property="uid" column="uid"/>
+		<result property="uno" column="uno" />
+		<result property="uname" column="uname" />
+		<result property="uid" column="uid" />
+		<result property="unick" column="unick" />
+		<result property="upass" column="upass" />
+		<result property="birth" column="birth" />
+		<result property="gender" column="gender" />
+		<result property="phone" column="phone" />
+		<result property="addr" column="addr" />
+		<result property="addr_detail" column="addr_detail" />
+		<result property="post" column="post" />
+		<result property="user_img" column="user_img" />
+		<result property="buyno" column="buyno" />
+		<result property="sellno" column="sellno" />
+		<result property="regdate" column="regdate" />
+		<result property="deleted" column="deleted" />
+		<result property="follower" column="follower" />
+		<result property="follow" column="follow" />
+		<result property="sell_pro" column="sell_pro" />
+		<result property="buy_pro" column="buy_pro" />
+		<result property="visit_date" column="visit_date" />
+		<result property="report" column="report" />
+		<result property="bandate" column="bandate" />
+		<result property="defaultint" column="defaultint" />
+		<result property="zzim" column="zzim" />
+		
+		<collection property="authList" resultMap="authMap" />
+		
+	</resultMap>
+
+	<resultMap id="authMap" type="net.koreate.user.vo.AuthVO">
+		<result property="uid" column="uid"/>
+		<result property="uauth" column="uauth"/>
+	</resultMap>
+	
+	<!-- 회원 가입 -->
+	<!-- void memberJoin(ValidationMemberVO vo); -->
+	<insert id="signUp"
+		parameterType="net.koreate.user.vo.UserVO">
+		INSERT INTO user_tbl(
+			user_img, uname, uid, unick, upass, birth, gender, phone, addr, addr_detail, post
+		)VALUES(
+			#{user_img},
+			#{uname},
+			#{uid},
+			#{unick},
+			#{upass},
+			#{birth},
+			#{gender},
+			#{phone},
+			#{addr},
+			#{addr_detail},
+			#{post}
+		)
+	</insert>
+	
+	<!-- 아이디 권한 가져오기 -->
+	<!-- UserVO getMemberByID(String uid) throws Exception; -->
+	<select id="getMemberByID" 
+		parameterType="java.lang.String" 
+		resultMap="memberMap"  >
+		SELECT member.*, uauth FROM 
+		user_tbl AS member
+		LEFT OUTER JOIN 
+		user_auth AS mauth 
+		on member.uid = mauth.uid 
+		WHERE member.uid = #{uid}
+	</select>
+
+	<!-- 회원가입시 권한 부여 -->
+	<!-- void insertAuth(String uid) throws Exception; -->
+	<insert id="insertAuth" parameterType="String">
+		INSERT INTO user_auth(uid,uauth)
+		VALUES(#{uid}, 'ROLE_USER')
+	</insert>
+
+	<!-- 로그인시 방문시간을 현재시간으로 수정  -->
+	<!-- void updateVisitDate(String uid) -->
+	<update id="updateVisitDate" parameterType="String">
+		UPDATE user_tbl SET
+		visit_date = now()
+		WHERE uid = #{uid}
+	</update>
+
+	<!-- 활성화 여부 수정 -->
+	<!-- void deleteYN(UserVO vo); -->
+	<update id="deleteYN" 
+	parameterType="net.koreate.user.vo.UserVO">
+		UPDATE user_tbl SET 
+		deleted = #{deleted} 
+		WHERE uid = #{uid}
+	</update>
+
+	<!-- 회원 목록  -->
+	<!-- List<UserVO> getMemberList() throws Exception; -->
+	<select id="getMemberList" 
+			resultMap="memberMap">
+		SELECT member.*, uauth FROM 
+		user_tbl AS member
+		LEFT OUTER JOIN 
+		user_auth AS mauth 
+		on member.uid = mauth.uid 
+		ORDER BY uno DESC
+	</select>
+
+	<!-- 유저 차단하기 -->
+	<!-- void giveBan(String uid) throws Exception; -->
+	<update id="giveBan" 
+	parameterType="String">
+		UPDATE user_tbl SET 
+		bandate = 7, defaultint = 1
+		WHERE uid = #{uid}
+	</update>
+	
+	<!-- 비밀번호 변경 -->
+	<!-- void pwChangePost(@Param("uid") String uid,@Param("upass") String upass); -->
+	<update id="pwChangePost" parameterType="String">
+		UPDATE user_tbl SET upass = #{upass}
+		WHERE uid = #{uid}
+	</update>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+

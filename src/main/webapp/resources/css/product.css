@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+
+.product_box{
+		width:100%;
+	}
+	
+	.product_list{
+		overflow:hidden;
+		width:1190px;
+		height:432.5px;
+		margin: 0 auto;
+		
+	
+	}
+	
+	.product_inner1{
+		
+		float:left;
+		width:25%;
+		height:412.5px;
+	
+	}
+	
+	.product_inner2{
+		float:left;
+		
+		width:25%;
+		height:412.5px;
+	}
+	
+	.product_inner3{
+		float:left;
+		
+		width:25%;
+		height:412.5px;
+	}
+	
+	
+	.product_inner4{
+		float:left;
+	
+		width:25%;
+		height:412.5px;
+	}
+	
+	.product1{
+	
+		width:100%;
+		height:259px;
+	}
+	
+	.product2{
+	
+		width:100%;
+		height:259px;
+	}
+	
+	.product3{
+	
+		width:100%;
+		height:259px;
+	}
+	
+	.product4{
+	
+		width:100%;
+		height:259px;
+	}
+	
+	.product_ex{
+		width:100%;
+		height: 153.5px;
+	}
+	
+	.brand_text{
+		display:inline-block;
+		vertical-align: top;
+		overflow: hidden;
+		font-size: 14px;
+		font-weight: 700;
+		border-bottom: 1px solid #222;
+		padding-bottom: 2px;
+	}
+	
+	.brand_name{
+		text-overflow: ellipsis;
+	    margin-top: 8.5px;
+	    font-size: 14px;
+	    color: #222;
+	}
+	
+	.product_num{
+		font-size: 15px;
+		font-weight: 700;
+		display: inline-block;
+		
+	}
+	
+	.product_won{
+		display: inline-block;
+		font-size: 5px;
+		font-weight: 700;
+	}
+	
+	.brand_gumae{
+		
+		font-size: 11px;
+		color: rgba(34,34,34,0.5);
+	}
+	
+	
+
+	.btn_product{
+		display:flex;
+		justify-content: center;
+		align-items:center; 
+		height:62px;
+	}
+	
+	.product1 img{
+		width:100%;
+		height: 100%;
+	}
